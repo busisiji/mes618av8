@@ -1,0 +1,10 @@
+unpass
+toolong
+bad
+transparentempty
+transparenexcept
+withoutcover
+havecover
+none
+XLabel
+YLabel
