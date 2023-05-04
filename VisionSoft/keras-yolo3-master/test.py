@@ -1,10 +1,9 @@
-import os
+import random
+import string
 
-import cv2
+def generate_key(length):
+    letters_and_digits = string.ascii_uppercase + string.digits
+    return ''.join(random.choice(letters_and_digits) for i in range(length))
 
-from ultralytics import YOLO
-
-from prepare_data import convert
-
-model = YOLO("runs/detect/train6/weights/best.pt")
-success = model.export(format="ONNX")  # 将模型导出为 ONNX 格式
+key = generate_key(32)
+print(key)

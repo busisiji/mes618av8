@@ -29,6 +29,7 @@ Usage - formats:
 """
 
 import argparse
+import logging
 import os
 import sys
 from pathlib import Path
@@ -51,21 +52,30 @@ from utils.torch_utils import select_device, smart_inference_mode
 
 from ultralytics import YOLO
 
+logging.basicConfig(filename='example.log', level=logging.DEBUG,format='\r\n%(asctime)s %(levelname)s：%(message)s')
+# 打开日志文件并将其截断为零字节
+with open('example.log', 'w'):
+    pass
+
 def get_key(d, value):
     for k, v in d.items():
         if v == value:
             return k
     return None
-def FileSetLimits(self,path=ROOT / 'runs/train',num=100):
+def FileSetLimits(self,path=ROOT / 'runs/detect',num=100):
     '''文件超过上限数量则清空'''
-    if len([f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]) > num:
-        for filename in os.listdir(path):
-            file_path = os.path.join(path, filename)
-            try:
-                if os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-            except Exception as e:
-                print(f"Failed to delete {file_path}. Reason: {e}")
+    try:
+        if len([f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]) > num:
+            for filename in os.listdir(path):
+                file_path = os.path.join(path, filename)
+                try:
+                    if os.path.isdir(file_path):
+                        shutil.rmtree(file_path)
+                except Exception as e:
+                    print(f"Failed to delete {file_path}. Reason: {e}")
+    except Exception as e:
+        # 记录异常信息
+        logging.exception("【清理文件报错】")
 def run(
         weights=ROOT / 'yolov8n.pt',  # model path or triton URL
         source="0",  # ROOT / '0',  # file/dir/URL/glob/screen/0(webcam)
@@ -97,87 +107,96 @@ def run(
         retina_masks=False,  # High resolution masks
         userId = 'VisionMaker'
 ):
-    source = str(source)
-    print(source)
-    save_img = not nosave and not source.endswith('.txt')  # save inference images
-    is_file = Path(source).suffix[1:] in (IMG_FORMATS + VID_FORMATS)
-    is_url = source.lower().startswith(('rtsp://', 'rtmp://', 'http://', 'https://'))
-    webcam = source.isnumeric() or source.endswith('.streams') or (is_url and not is_file)
-    screenshot = source.lower().startswith('screen')
-    if is_url and is_file:
-        source = check_file(source)  # download
-
-    # Directories
-    save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
-    # (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
-    # Load model
-    device = select_device(device)
-    if not is_url and is_file:
-        img = cv2.imread(source)
-        height, width, channels = img.shape
-        if width != 848:
-            print('没有新图片传入！')
-            return
-        img_wide = (width - 854) / 2
-        img = img[:, int(106 + img_wide):int(746 + img_wide)]
-        height, width, channels = img.shape
-        cv2.imwrite(source, img)
-    else:
+    try:
+        source = str(source)
         print(source)
-        cap = cv2.VideoCapture(source)
-        ret, frame = cap.read()
-        if ret:
-            img = frame
-        else:
-            print('摄像头有问题')
-            return
-    '''识别'''
-    model = YOLO(weights)
-    model.predict(source=source, save=not nosave,iou=iou, conf=conf, save_txt=save_txt, save_conf=save_conf,
-                  save_crop=save_crop, agnostic_nms=agnostic_nms, augment=augment,
-                  visualize=visualize, project=project, name=name, exist_ok=exist_ok,
-                  line_thickness=line_thickness, hide_labels=hide_labels, hide_conf=hide_conf, half=half, dnn=dnn,
-                  vid_stride=vid_stride, retina_masks=retina_masks)
+        save_img = not nosave and not source.endswith('.txt')  # save inference images
+        is_file = Path(source).suffix[1:] in (IMG_FORMATS + VID_FORMATS)
+        is_url = source.lower().startswith(('rtsp://', 'rtmp://', 'http://', 'https://'))
+        webcam = source.isnumeric() or source.endswith('.streams') or (is_url and not is_file)
+        screenshot = source.lower().startswith('screen')
+        if is_url and is_file:
+            source = check_file(source)  # download
 
-    '''将识别框的中心点像素坐标写入数据库'''
-    # r = redis.Redis(host="127.0.0.1", port=6379)
-    with open(data, 'r', encoding='utf-8') as f:
-        data_yaml = yaml.load(f, Loader=yaml.FullLoader)
-    XLabel_num = get_key(data_yaml['names'], 'XLabel')
-    YLabel_num = get_key(data_yaml['names'], 'YLabel')
-    labellist = [None,None]
-    if XLabel_num and YLabel_num:
-        if save_txt:
-            with open(save_dir / 'labels/oxy.txt','r',encoding='utf-8') as f:
-                lines = f.readlines()
-            for line in lines:
-                words = line.strip().split()
-                if words[0] == str(XLabel_num):
-                    x, y = words[1],words[2]
-                    x_center = float(x) * width
-                    y_center = float(y) * height
-                    labellist[0] = [round(y_center,2),round(x_center,2)]
-                    print(x_center, y_center)
-                elif words[0] == str(YLabel_num):
-                    x, y = words[1],words[2]
-                    x_center = float(x) * width
-                    y_center = float(y) * height
-                    labellist[1] = [round(y_center,2), round(x_center,2)]
-                    print(x_center, y_center)
-            if None not in labellist:
-                shutil.copy(save_dir / 'oxy.jpg', ROOT / 'img/output/oxy.jpg')
-                # r.set(userId + "_Oxy",
-                #       (str(labellist[0][0]) + "," + str(labellist[0][1]) + "," + str(labellist[0][0]) + "," + str(labellist[0][1])))
-                print(str(labellist[0][0]) + "," + str(labellist[0][1]) + "," + str(labellist[1][0]) + "," + str(labellist[1][1]))
+        # Directories
+        save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
+        # (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
+        # Load model
+        device = select_device(device)
+        if not is_url and is_file:
+            img = cv2.imread(source)
+            height, width, channels = img.shape
+            if width != 848:
+                print('没有新图片传入！')
+                logging.error("【没有新图片传入】")
+                return
+            img_wide = (width - 854) / 2
+            img = img[:, int(106 + img_wide):int(746 + img_wide)]
+            height, width, channels = img.shape
+            cv2.imwrite(source, img)
+        else:
+            print(source)
+            cap = cv2.VideoCapture(source)
+            ret, frame = cap.read()
+            if ret:
+                img = frame
+            else:
+                print('摄像头有问题')
+                logging.error("【摄像头有问题】")
+                return
+        '''识别'''
+        model = YOLO(weights)
+        model.predict(source=source, save=not nosave,iou=iou, conf=conf, save_txt=save_txt, save_conf=save_conf,
+                      save_crop=save_crop, agnostic_nms=agnostic_nms, augment=augment,
+                      visualize=visualize, project=project, name=name, exist_ok=exist_ok,
+                      line_thickness=line_thickness, hide_labels=hide_labels, hide_conf=hide_conf, half=half, dnn=dnn,
+                      vid_stride=vid_stride, retina_masks=retina_masks)
+
+        '''将识别框的中心点像素坐标写入数据库'''
+        # r = redis.Redis(host="127.0.0.1", port=6379)
+        with open(data, 'r', encoding='utf-8') as f:
+            data_yaml = yaml.load(f, Loader=yaml.FullLoader)
+        XLabel_num = get_key(data_yaml['names'], 'XLabel')
+        YLabel_num = get_key(data_yaml['names'], 'YLabel')
+        labellist = [None,None]
+        if XLabel_num and YLabel_num:
+            if save_txt:
+                with open(save_dir / 'labels/oxy.txt','r',encoding='utf-8') as f:
+                    lines = f.readlines()
+                for line in lines:
+                    words = line.strip().split()
+                    if words[0] == str(XLabel_num):
+                        x, y = words[1],words[2]
+                        x_center = float(x) * width
+                        y_center = float(y) * height
+                        labellist[0] = [round(y_center,2),round(x_center,2)]
+                        print(x_center, y_center)
+                    elif words[0] == str(YLabel_num):
+                        x, y = words[1],words[2]
+                        x_center = float(x) * width
+                        y_center = float(y) * height
+                        labellist[1] = [round(y_center,2), round(x_center,2)]
+                        print(x_center, y_center)
+                if None not in labellist:
+                    shutil.copy(save_dir / 'oxy.jpg', ROOT / 'img/output/oxy.jpg')
+                    # r.set(userId + "_Oxy",
+                    #       (str(labellist[0][0]) + "," + str(labellist[0][1]) + "," + str(labellist[0][0]) + "," + str(labellist[0][1])))
+                    print(str(labellist[0][0]) + "," + str(labellist[0][1]) + "," + str(labellist[1][0]) + "," + str(labellist[1][1]))
+                else:
+                    # r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
+                    print('识别不到XLabel和YLabel')
+                    logging.error("【识别不到XLabel和YLabel】")
             else:
                 # r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
-                print('识别不到XLabel和YLabel')
+                print('请将--save_txt设为True')
+                logging.error("【save_txt设为True】")
         else:
             # r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
-            print('请将--save_txt设为True')
-    else:
-        # r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
-        print(f'{data}文件标签类别有问题，没有XLabel和YLabel标签！')
+            print(f'{data}文件标签类别有问题，没有XLabel和YLabel标签！')
+            logging.error(f"【{data}文件标签类别有问题，没有XLabel和YLabel标签】")
+    except Exception as e:
+        # 记录异常信息
+        logging.exception("【识别标签报错】")
 
 def parse_opt():
     '''
@@ -208,36 +227,39 @@ def parse_opt():
     - `vid_stride`: 视频帧率的步长。
     - `retina_masks`: 是否使用高分辨率的掩码。
     '''
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--weights',  type=str, default=ROOT / 'best.pt',
-                        help='model path or triton URL')
-    parser.add_argument('--source', type=str, default=ROOT / 'img/input/oxy.jpg',
-                        help='file/dir/URL/glob/screen/0(webcam)')
-    parser.add_argument('--view-img', default=True, action='store_true', help='View the prediction images')
-    parser.add_argument('--data', type=str, default=ROOT / 'data/618A.yaml', help='(optional) dataset.yaml path')
-    parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=[640], help='inference size h,w')
-    parser.add_argument('--save-txt', default=True, action='store_true',
-                        help='Save the results in a txt file')
-    parser.add_argument('--conf', type=float, default=0.25, help='confidence threshold')
-    parser.add_argument('--iou', type=float, default=0.45, help='NMS IoU threshold')
-    parser.add_argument('--max-det', type=int, default=1000, help='maximum detections per image')
-    parser.add_argument('--save-conf', default=True, action='store_true', help='Save the condidence scores')
-    parser.add_argument('--save-crop', default=True, action='store_true', help='Save the crop')
-    parser.add_argument('--hide-labels', default=False, action='store_true', help='Hide the labels')
-    parser.add_argument('--hide-conf', default=False, action='store_true', help='Hide the confidence scores')
-    parser.add_argument('--vid-stride', default=False, action='store_true',
-                        help='Input video frame-rate stride')
-    parser.add_argument('--line-thickness', default=3, type=int, help='Bounding-box thickness (pixels)')
-    parser.add_argument('--visualize', default=False, action='store_true', help='Visualize model features')
-    parser.add_argument('--augment', default=False, action='store_true', help='Augmented inference')
-    parser.add_argument('--agnostic-nms', default=False, action='store_true', help='Class-agnostic NMS')
-    parser.add_argument('--retina-masks', default=False, action='store_true', help='High resolution masks')
-    parser.add_argument('--userId', default='VisionMaker', type=str,help='MES System account')
-    opt = parser.parse_args()
-    opt.imgsz *= 2 if len(opt.imgsz) == 1 else 1  # expand
-    print_args(vars(opt))
-    return opt
-
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--weights',  type=str, default=ROOT / 'best.pt',
+                            help='model path or triton URL')
+        parser.add_argument('--source', type=str, default=ROOT / 'img/input/oxy.jpg',
+                            help='file/dir/URL/glob/screen/0(webcam)')
+        parser.add_argument('--view-img', default=True, action='store_true', help='View the prediction images')
+        parser.add_argument('--data', type=str, default=ROOT / 'data/618A.yaml', help='(optional) dataset.yaml path')
+        parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=[640], help='inference size h,w')
+        parser.add_argument('--save-txt', default=True, action='store_true',
+                            help='Save the results in a txt file')
+        parser.add_argument('--conf', type=float, default=0.25, help='confidence threshold')
+        parser.add_argument('--iou', type=float, default=0.45, help='NMS IoU threshold')
+        parser.add_argument('--max-det', type=int, default=1000, help='maximum detections per image')
+        parser.add_argument('--save-conf', default=True, action='store_true', help='Save the condidence scores')
+        parser.add_argument('--save-crop', default=True, action='store_true', help='Save the crop')
+        parser.add_argument('--hide-labels', default=False, action='store_true', help='Hide the labels')
+        parser.add_argument('--hide-conf', default=False, action='store_true', help='Hide the confidence scores')
+        parser.add_argument('--vid-stride', default=False, action='store_true',
+                            help='Input video frame-rate stride')
+        parser.add_argument('--line-thickness', default=3, type=int, help='Bounding-box thickness (pixels)')
+        parser.add_argument('--visualize', default=False, action='store_true', help='Visualize model features')
+        parser.add_argument('--augment', default=False, action='store_true', help='Augmented inference')
+        parser.add_argument('--agnostic-nms', default=False, action='store_true', help='Class-agnostic NMS')
+        parser.add_argument('--retina-masks', default=False, action='store_true', help='High resolution masks')
+        parser.add_argument('--userId', default='VisionMaker', type=str,help='MES System account')
+        opt = parser.parse_args()
+        opt.imgsz *= 2 if len(opt.imgsz) == 1 else 1  # expand
+        print_args(vars(opt))
+        return opt
+    except Exception as e:
+        # 记录异常信息
+        logging.exception("【输入参数报错】")
 def main(opt):
     run(**vars(opt))
 

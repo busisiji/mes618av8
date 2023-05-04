@@ -29,6 +29,7 @@ Usage - formats:
 """
 
 import argparse
+import logging
 import math
 import os
 import sys
@@ -59,10 +60,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+logging.basicConfig(filename='example.log', level=logging.DEBUG,format='\r\n%(asctime)s %(levelname)s：%(message)s')
+# 打开日志文件并将其截断为零字节
+with open('example.log', 'w'):
+    pass
 
 class Yolo():
     def __init__(self,opt):
-        self.weights = ROOT / opt['runH5File']
+        self.weights =  opt['runH5File']
         self.device = '0' if (opt['gpuOpenOrClose']) else 'cpu' # cuda device, i.e. 0 or 0,1,2,3 or cpu
         self.nosave = False
         self.model = None
@@ -95,10 +100,11 @@ class Yolo():
     def run(self):
         '''预热模型'''
         # Load model
-        device = select_device(self.device)
+        select_device(self.device)
         self.model = YOLO(self.weights)
         if not self.model:
             print('未找到模型，请检查模型是否存在')
+            logging.error("【未找到模型，请检查模型是否存在】")
             sys.exit()
 
         # model.predict(source=source, save=not nosave,iou=iou, conf=conf, save_txt=save_txt, save_conf=save_conf,
@@ -134,6 +140,7 @@ class Yolo():
             height, width, channels = img.shape
             if width != 848:
                 print('没有新图片传入！')
+                logging.error("【没有新图片传入】")
                 return
             img_wide = (width - 854) / 2
             img = img[:, int(106 + img_wide):int(746 + img_wide)]
@@ -147,6 +154,7 @@ class Yolo():
                 img = frame
             else:
                 print('摄像头有问题')
+                logging.error("【摄像头有问题】")
                 return
         print(increment_path(Path(self.project) / self.name, exist_ok=self.exist_ok))
         self.model.predict(source=self.source, save=not self.nosave, iou=self.iou, conf=self.conf, save_txt=self.save_txt, save_conf=self.save_conf,
@@ -216,6 +224,7 @@ class Yolo():
                 res.append([float(labelxy[0]), float(labelxy[1]), labelxy[3], len(thislabel[1]), thislabel[0]])
             return res
         except Exception as e:
+            logging.exception("【识别颗粒出错】")
             print(e)
     def model2vadiocatch(self,getnewOxy, k):
         '''
@@ -271,6 +280,7 @@ class Yolo():
             return res
         except Exception as e:
             print(e)
+            logging.exception("【识别托盘出错】")
             return {'resflag': -1}
 
     def FileSetLimits(self,path=ROOT / 'runs/detect',num=100):
@@ -531,30 +541,30 @@ if __name__ == "__main__":
     AGVOxy1 = kagv1 = None
     AGVOxy2 = kagv2 = None
     # opt = parse_opt()
-    opt = {
-        "gpuOpenOrClose": 1,
-        "runH5File": "best.pt",
-        "identifyScore": 0.25,
-        "identifyIou": 0.45,
-        "cameraOnRobot1": 1,
-        "cameraOnRobot2": 0,
-        "CoordinateOfMaterials": "394.5,485.0,68.0,166.5",
-        "CoordinateOfRobot1": "343.0,349.0,340.0,164.5",
-        "CoordinateOfRobot2": "335.0,371.5,335.0,188.5",
-        "userId": "VisionMaker"
-    }
     # opt = {
-    #     "gpuOpenOrClose": 1 if (str(sys.argv[1]) == "True") else -1,
-    #     "runH5File": str(sys.argv[2]),
-    #     "identifyScore": float(sys.argv[3]),
-    #     "identifyIou": float(sys.argv[4]),
-    #     "cameraOnRobot1": 1 if (int(sys.argv[5]) == 1) else 0,
-    #     "cameraOnRobot2": 1 if (int(sys.argv[6]) == 1) else 0,
-    #     "CoordinateOfMaterials": str(sys.argv[7]),
-    #     "CoordinateOfRobot1": str(sys.argv[8]),
-    #     "CoordinateOfRobot2": str(sys.argv[9]),
-    #     "userId": str(sys.argv[10])
+    #     "gpuOpenOrClose": 1,
+    #     "runH5File": "best.pt",
+    #     "identifyScore": 0.25,
+    #     "identifyIou": 0.45,
+    #     "cameraOnRobot1": 1,
+    #     "cameraOnRobot2": 0,
+    #     "CoordinateOfMaterials": "394.5,485.0,68.0,166.5",
+    #     "CoordinateOfRobot1": "343.0,349.0,340.0,164.5",
+    #     "CoordinateOfRobot2": "335.0,371.5,335.0,188.5",
+    #     "userId": "VisionMaker"
     # }
+    opt = {
+        "gpuOpenOrClose": 1 if (str(sys.argv[1]) == "True") else -1,
+        "runH5File": str(sys.argv[2]),
+        "identifyScore": float(sys.argv[3]),
+        "identifyIou": float(sys.argv[4]),
+        "cameraOnRobot1": 1 if (int(sys.argv[5]) == 1) else 0,
+        "cameraOnRobot2": 1 if (int(sys.argv[6]) == 1) else 0,
+        "CoordinateOfMaterials": str(sys.argv[7]),
+        "CoordinateOfRobot1": str(sys.argv[8]),
+        "CoordinateOfRobot2": str(sys.argv[9]),
+        "userId": str(sys.argv[10])
+    }
 
     yolo = Yolo(opt)
     yolo.run()
