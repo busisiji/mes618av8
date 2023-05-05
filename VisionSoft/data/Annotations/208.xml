@@ -1,7 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <annotation verified="no">
   <folder>data</folder>
-  <filename>208</filename>
-  <path>C:\Users\44526\Desktop\workF\&#19977;&#21521;2021\data\208.jpg</path>
+  <filename>513</filename>
+  <path>F:\618newnew\BackEnd\sanxiang2021_3\bin\Debug\netcoreapp3.1\Users\VisionMaker\VisionSoft\data\JPEGImages\513.jpg</path>
   <source>
     <database>Unknown</database>
   </source>
@@ -12,27 +13,15 @@
   </size>
   <segmented>0</segmented>
   <object>
-    <name>whiteempty</name>
+    <name>YLabel</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>609</xmin>
-      <ymin>250</ymin>
-      <xmax>993</xmax>
-      <ymax>633</ymax>
-    </bndbox>
-  </object>
-  <object>
-    <name>none</name>
-    <pose>Unspecified</pose>
-    <truncated>0</truncated>
-    <Difficult>0</Difficult>
-    <bndbox>
-      <xmin>170</xmin>
-      <ymin>218</ymin>
-      <xmax>487</xmax>
-      <ymax>548</ymax>
+      <xmin>343</xmin>
+      <ymin>370</ymin>
+      <xmax>401</xmax>
+      <ymax>427</ymax>
     </bndbox>
   </object>
   <object>
@@ -41,22 +30,34 @@
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>331</xmin>
-      <ymin>88</ymin>
-      <xmax>399</xmax>
-      <ymax>157</ymax>
+      <xmin>577</xmin>
+      <ymin>507</ymin>
+      <xmax>626</xmax>
+      <ymax>566</ymax>
     </bndbox>
   </object>
   <object>
-    <name>YLabel</name>
+    <name>transparenexcept</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>758</xmin>
-      <ymin>134</ymin>
-      <xmax>830</xmax>
-      <ymax>212</ymax>
+      <xmin>605</xmin>
+      <ymin>303</ymin>
+      <xmax>866</xmax>
+      <ymax>561</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>none</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>365</xmin>
+      <ymin>159</ymin>
+      <xmax>554</xmax>
+      <ymax>364</ymax>
     </bndbox>
   </object>
 </annotation>

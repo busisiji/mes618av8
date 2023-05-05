@@ -1,7 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <annotation verified="no">
   <folder>data</folder>
-  <filename>292</filename>
-  <path>C:\Users\44526\Desktop\workF\&#19977;&#21521;2021\data\292.jpg</path>
+  <filename>382</filename>
+  <path>F:\618newnew\BackEnd\sanxiang2021_3\bin\Debug\netcoreapp3.1\Users\VisionMaker\VisionSoft\data\JPEGImages\382.jpg</path>
   <source>
     <database>Unknown</database>
   </source>
@@ -12,27 +13,15 @@
   </size>
   <segmented>0</segmented>
   <object>
-    <name>whiteexcept</name>
-    <pose>Unspecified</pose>
-    <truncated>0</truncated>
-    <Difficult>0</Difficult>
-    <bndbox>
-      <xmin>234</xmin>
-      <ymin>222</ymin>
-      <xmax>648</xmax>
-      <ymax>603</ymax>
-    </bndbox>
-  </object>
-  <object>
     <name>none</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>769</xmin>
-      <ymin>301</ymin>
-      <xmax>1102</xmax>
-      <ymax>638</ymax>
+      <xmin>387</xmin>
+      <ymin>266</ymin>
+      <xmax>583</xmax>
+      <ymax>460</ymax>
     </bndbox>
   </object>
   <object>
@@ -41,10 +30,10 @@
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>491</xmin>
-      <ymin>111</ymin>
-      <xmax>558</xmax>
-      <ymax>180</ymax>
+      <xmin>733</xmin>
+      <ymin>501</ymin>
+      <xmax>775</xmax>
+      <ymax>545</ymax>
     </bndbox>
   </object>
   <object>
@@ -53,10 +42,22 @@
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>921</xmin>
-      <ymin>168</ymin>
-      <xmax>989</xmax>
-      <ymax>239</ymax>
+      <xmin>462</xmin>
+      <ymin>499</ymin>
+      <xmax>512</xmax>
+      <ymax>552</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>withoutcover</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>664</xmin>
+      <ymin>251</ymin>
+      <xmax>937</xmax>
+      <ymax>476</ymax>
     </bndbox>
   </object>
 </annotation>

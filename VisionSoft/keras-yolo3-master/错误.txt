@@ -1,5 +1,0 @@
-修改C:\Users\Administrator\AppData\Roaming\Ultralytics中的settings.yaml
-修改为datasets_dir: C:\Users\Administrator\Desktop\618Apython\VisionSoft\data
-
-离线使用：
-D:\Anaconda3\envs\ultralytics\Lib\site-packages\ultralytics\yolo\engine\model.py 301行注释掉：self._check_pip_update()

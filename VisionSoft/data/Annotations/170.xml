@@ -1,7 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <annotation verified="no">
   <folder>data</folder>
-  <filename>170</filename>
-  <path>C:\Users\44526\Desktop\workF\&#19977;&#21521;2021\data\170.jpg</path>
+  <filename>259</filename>
+  <path>F:\618newnew\BackEnd\sanxiang2021_3\bin\Debug\netcoreapp3.1\Users\VisionMaker\VisionSoft\data\JPEGImages\259.jpg</path>
   <source>
     <database>Unknown</database>
   </source>
@@ -12,39 +13,15 @@
   </size>
   <segmented>0</segmented>
   <object>
-    <name>none</name>
-    <pose>Unspecified</pose>
-    <truncated>0</truncated>
-    <Difficult>0</Difficult>
-    <bndbox>
-      <xmin>313</xmin>
-      <ymin>312</ymin>
-      <xmax>641</xmax>
-      <ymax>645</ymax>
-    </bndbox>
-  </object>
-  <object>
-    <name>none</name>
-    <pose>Unspecified</pose>
-    <truncated>0</truncated>
-    <Difficult>0</Difficult>
-    <bndbox>
-      <xmin>764</xmin>
-      <ymin>341</ymin>
-      <xmax>1087</xmax>
-      <ymax>669</ymax>
-    </bndbox>
-  </object>
-  <object>
     <name>XLabel</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>462</xmin>
-      <ymin>176</ymin>
-      <xmax>534</xmax>
-      <ymax>245</ymax>
+      <xmin>589</xmin>
+      <ymin>506</ymin>
+      <xmax>633</xmax>
+      <ymax>554</ymax>
     </bndbox>
   </object>
   <object>
@@ -53,10 +30,34 @@
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>901</xmin>
-      <ymin>207</ymin>
-      <xmax>970</xmax>
-      <ymax>283</ymax>
+      <xmin>314</xmin>
+      <ymin>571</ymin>
+      <xmax>375</xmax>
+      <ymax>619</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>withoutcover</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>75</xmin>
+      <ymin>343</ymin>
+      <xmax>403</xmax>
+      <ymax>579</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>transparenexcept</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>443</xmin>
+      <ymin>271</ymin>
+      <xmax>697</xmax>
+      <ymax>516</ymax>
     </bndbox>
   </object>
 </annotation>

@@ -1,7 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <annotation verified="no">
   <folder>data</folder>
-  <filename>303</filename>
-  <path>C:\Users\44526\Desktop\workF\&#19977;&#21521;2021\data\303.jpg</path>
+  <filename>393</filename>
+  <path>F:\618newnew\BackEnd\sanxiang2021_3\bin\Debug\netcoreapp3.1\Users\VisionMaker\VisionSoft\data\JPEGImages\393.jpg</path>
   <source>
     <database>Unknown</database>
   </source>
@@ -12,27 +13,51 @@
   </size>
   <segmented>0</segmented>
   <object>
-    <name>transparenexcept</name>
-    <pose>Unspecified</pose>
-    <truncated>0</truncated>
-    <Difficult>0</Difficult>
-    <bndbox>
-      <xmin>699</xmin>
-      <ymin>171</ymin>
-      <xmax>1160</xmax>
-      <ymax>580</ymax>
-    </bndbox>
-  </object>
-  <object>
     <name>XLabel</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>860</xmin>
-      <ymin>90</ymin>
-      <xmax>927</xmax>
-      <ymax>160</ymax>
+      <xmin>732</xmin>
+      <ymin>487</ymin>
+      <xmax>777</xmax>
+      <ymax>540</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>YLabel</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>464</xmin>
+      <ymin>486</ymin>
+      <xmax>512</xmax>
+      <ymax>540</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>none</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>661</xmin>
+      <ymin>257</ymin>
+      <xmax>855</xmax>
+      <ymax>449</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>withoutcover</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>342</xmin>
+      <ymin>234</ymin>
+      <xmax>583</xmax>
+      <ymax>469</ymax>
     </bndbox>
   </object>
 </annotation>

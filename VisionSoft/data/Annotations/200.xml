@@ -1,7 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <annotation verified="no">
   <folder>data</folder>
-  <filename>200</filename>
-  <path>C:\Users\44526\Desktop\workF\&#19977;&#21521;2021\data\200.jpg</path>
+  <filename>289</filename>
+  <path>F:\618newnew\BackEnd\sanxiang2021_3\bin\Debug\netcoreapp3.1\Users\VisionMaker\VisionSoft\data\JPEGImages\289.jpg</path>
   <source>
     <database>Unknown</database>
   </source>
@@ -12,15 +13,15 @@
   </size>
   <segmented>0</segmented>
   <object>
-    <name>whiteempty</name>
+    <name>transparenexcept</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>621</xmin>
-      <ymin>276</ymin>
-      <xmax>1005</xmax>
-      <ymax>659</ymax>
+      <xmin>533</xmin>
+      <ymin>258</ymin>
+      <xmax>770</xmax>
+      <ymax>520</ymax>
     </bndbox>
   </object>
   <object>
@@ -29,10 +30,10 @@
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>181</xmin>
-      <ymin>239</ymin>
-      <xmax>498</xmax>
-      <ymax>569</ymax>
+      <xmin>255</xmin>
+      <ymin>237</ymin>
+      <xmax>450</xmax>
+      <ymax>443</ymax>
     </bndbox>
   </object>
   <object>
@@ -41,10 +42,10 @@
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>340</xmin>
-      <ymin>104</ymin>
-      <xmax>408</xmax>
-      <ymax>173</ymax>
+      <xmin>586</xmin>
+      <ymin>514</ymin>
+      <xmax>630</xmax>
+      <ymax>558</ymax>
     </bndbox>
   </object>
   <object>
@@ -53,10 +54,10 @@
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>770</xmin>
-      <ymin>152</ymin>
-      <xmax>842</xmax>
-      <ymax>230</ymax>
+      <xmin>314</xmin>
+      <ymin>476</ymin>
+      <xmax>361</xmax>
+      <ymax>528</ymax>
     </bndbox>
   </object>
 </annotation>

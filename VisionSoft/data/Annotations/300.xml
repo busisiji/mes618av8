@@ -1,7 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <annotation verified="no">
   <folder>data</folder>
-  <filename>300</filename>
-  <path>C:\Users\44526\Desktop\workF\&#19977;&#21521;2021\data\300.jpg</path>
+  <filename>390</filename>
+  <path>F:\618newnew\BackEnd\sanxiang2021_3\bin\Debug\netcoreapp3.1\Users\VisionMaker\VisionSoft\data\JPEGImages\390.jpg</path>
   <source>
     <database>Unknown</database>
   </source>
@@ -12,15 +13,27 @@
   </size>
   <segmented>0</segmented>
   <object>
-    <name>transparenexcept</name>
+    <name>YLabel</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>99</xmin>
-      <ymin>156</ymin>
-      <xmax>572</xmax>
-      <ymax>565</ymax>
+      <xmin>522</xmin>
+      <ymin>498</ymin>
+      <xmax>575</xmax>
+      <ymax>549</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>withoutcover</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>425</xmin>
+      <ymin>256</ymin>
+      <xmax>658</xmax>
+      <ymax>487</ymax>
     </bndbox>
   </object>
   <object>
@@ -29,10 +42,10 @@
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>681</xmin>
-      <ymin>249</ymin>
-      <xmax>1027</xmax>
-      <ymax>594</ymax>
+      <xmin>723</xmin>
+      <ymin>262</ymin>
+      <xmax>911</xmax>
+      <ymax>449</ymax>
     </bndbox>
   </object>
   <object>
@@ -41,22 +54,10 @@
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>403</xmin>
-      <ymin>79</ymin>
-      <xmax>470</xmax>
-      <ymax>147</ymax>
-    </bndbox>
-  </object>
-  <object>
-    <name>YLabel</name>
-    <pose>Unspecified</pose>
-    <truncated>0</truncated>
-    <Difficult>0</Difficult>
-    <bndbox>
-      <xmin>831</xmin>
-      <ymin>116</ymin>
-      <xmax>911</xmax>
-      <ymax>191</ymax>
+      <xmin>793</xmin>
+      <ymin>498</ymin>
+      <xmax>834</xmax>
+      <ymax>545</ymax>
     </bndbox>
   </object>
 </annotation>

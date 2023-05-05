@@ -1,7 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <annotation verified="no">
   <folder>data</folder>
-  <filename>274</filename>
-  <path>C:\Users\44526\Desktop\workF\&#19977;&#21521;2021\data\274.jpg</path>
+  <filename>364</filename>
+  <path>F:\618newnew\BackEnd\sanxiang2021_3\bin\Debug\netcoreapp3.1\Users\VisionMaker\VisionSoft\data\JPEGImages\364.jpg</path>
   <source>
     <database>Unknown</database>
   </source>
@@ -12,51 +13,111 @@
   </size>
   <segmented>0</segmented>
   <object>
-    <name>none</name>
+    <name>bad</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>449</xmin>
-      <ymin>355</ymin>
-      <xmax>783</xmax>
-      <ymax>687</ymax>
+      <xmin>672</xmin>
+      <ymin>99</ymin>
+      <xmax>731</xmax>
+      <ymax>164</ymax>
     </bndbox>
   </object>
   <object>
-    <name>none</name>
+    <name>bad</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>894</xmin>
-      <ymin>332</ymin>
-      <xmax>1209</xmax>
-      <ymax>671</ymax>
+      <xmin>717</xmin>
+      <ymin>186</ymin>
+      <xmax>774</xmax>
+      <ymax>251</ymax>
     </bndbox>
   </object>
   <object>
-    <name>XLabel</name>
+    <name>bad</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>564</xmin>
-      <ymin>217</ymin>
-      <xmax>631</xmax>
-      <ymax>283</ymax>
+      <xmin>807</xmin>
+      <ymin>328</ymin>
+      <xmax>869</xmax>
+      <ymax>392</ymax>
     </bndbox>
   </object>
   <object>
-    <name>YLabel</name>
+    <name>bad</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>995</xmin>
-      <ymin>201</ymin>
-      <xmax>1063</xmax>
-      <ymax>272</ymax>
+      <xmin>898</xmin>
+      <ymin>413</ymin>
+      <xmax>967</xmax>
+      <ymax>475</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>bad</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>391</xmin>
+      <ymin>457</ymin>
+      <xmax>453</xmax>
+      <ymax>518</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>bad</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>425</xmin>
+      <ymin>544</ymin>
+      <xmax>493</xmax>
+      <ymax>608</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>bad</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>631</xmin>
+      <ymin>507</ymin>
+      <xmax>689</xmax>
+      <ymax>567</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>bad</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>722</xmin>
+      <ymin>439</ymin>
+      <xmax>787</xmax>
+      <ymax>503</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>bad</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>712</xmin>
+      <ymin>563</ymin>
+      <xmax>776</xmax>
+      <ymax>629</ymax>
     </bndbox>
   </object>
 </annotation>

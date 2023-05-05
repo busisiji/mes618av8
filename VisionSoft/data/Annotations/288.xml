@@ -1,7 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <annotation verified="no">
   <folder>data</folder>
-  <filename>288</filename>
-  <path>C:\Users\44526\Desktop\workF\&#19977;&#21521;2021\data\288.jpg</path>
+  <filename>378</filename>
+  <path>F:\618newnew\BackEnd\sanxiang2021_3\bin\Debug\netcoreapp3.1\Users\VisionMaker\VisionSoft\data\JPEGImages\378.jpg</path>
   <source>
     <database>Unknown</database>
   </source>
@@ -12,15 +13,15 @@
   </size>
   <segmented>0</segmented>
   <object>
-    <name>whiteexcept</name>
+    <name>YLabel</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>102</xmin>
-      <ymin>215</ymin>
-      <xmax>516</xmax>
-      <ymax>596</ymax>
+      <xmin>530</xmin>
+      <ymin>495</ymin>
+      <xmax>582</xmax>
+      <ymax>546</ymax>
     </bndbox>
   </object>
   <object>
@@ -29,10 +30,22 @@
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>645</xmin>
+      <xmin>740</xmin>
       <ymin>269</ymin>
-      <xmax>1000</xmax>
-      <ymax>609</ymax>
+      <xmax>926</xmax>
+      <ymax>458</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>none</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <Difficult>0</Difficult>
+    <bndbox>
+      <xmin>469</xmin>
+      <ymin>262</ymin>
+      <xmax>655</xmax>
+      <ymax>449</ymax>
     </bndbox>
   </object>
   <object>
@@ -41,22 +54,10 @@
     <truncated>0</truncated>
     <Difficult>0</Difficult>
     <bndbox>
-      <xmin>352</xmin>
-      <ymin>110</ymin>
-      <xmax>419</xmax>
-      <ymax>178</ymax>
-    </bndbox>
-  </object>
-  <object>
-    <name>YLabel</name>
-    <pose>Unspecified</pose>
-    <truncated>0</truncated>
-    <Difficult>0</Difficult>
-    <bndbox>
-      <xmin>784</xmin>
-      <ymin>134</ymin>
-      <xmax>852</xmax>
-      <ymax>207</ymax>
+      <xmin>802</xmin>
+      <ymin>501</ymin>
+      <xmax>841</xmax>
+      <ymax>548</ymax>
     </bndbox>
   </object>
 </annotation>
