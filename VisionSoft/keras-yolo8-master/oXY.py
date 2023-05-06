@@ -109,7 +109,7 @@ def run(
 ):
     try:
         source = str(source)
-        print(source)
+        # print(source)
         save_img = not nosave and not source.endswith('.txt')  # save inference images
         is_file = Path(source).suffix[1:] in (IMG_FORMATS + VID_FORMATS)
         is_url = source.lower().startswith(('rtsp://', 'rtmp://', 'http://', 'https://'))
@@ -135,7 +135,7 @@ def run(
             height, width, channels = img.shape
             cv2.imwrite(source, img)
         else:
-            print(source)
+            # print(source)
             cap = cv2.VideoCapture(source)
             ret, frame = cap.read()
             if ret:
@@ -153,7 +153,7 @@ def run(
                       vid_stride=vid_stride, retina_masks=retina_masks)
 
         '''将识别框的中心点像素坐标写入数据库'''
-        # r = redis.Redis(host="127.0.0.1", port=6379)
+        r = redis.Redis(host="127.0.0.1", port=6379)
         with open(data, 'r', encoding='utf-8') as f:
             data_yaml = yaml.load(f, Loader=yaml.FullLoader)
         XLabel_num = get_key(data_yaml['names'], 'XLabel')
@@ -170,28 +170,28 @@ def run(
                         x_center = float(x) * width
                         y_center = float(y) * height
                         labellist[0] = [round(y_center,2),round(x_center,2)]
-                        print(x_center, y_center)
+                        # print(x_center, y_center)
                     elif words[0] == str(YLabel_num):
                         x, y = words[1],words[2]
                         x_center = float(x) * width
                         y_center = float(y) * height
                         labellist[1] = [round(y_center,2), round(x_center,2)]
-                        print(x_center, y_center)
+                        # print(x_center, y_center)
                 if None not in labellist:
                     shutil.copy(save_dir / 'oxy.jpg', ROOT / 'img/output/oxy.jpg')
-                    # r.set(userId + "_Oxy",
-                    #       (str(labellist[0][0]) + "," + str(labellist[0][1]) + "," + str(labellist[0][0]) + "," + str(labellist[0][1])))
+                    r.set(userId + "_Oxy",
+                          (str(labellist[0][0]) + "," + str(labellist[0][1]) + "," + str(labellist[1][0]) + "," + str(labellist[1][1])))
                     print(str(labellist[0][0]) + "," + str(labellist[0][1]) + "," + str(labellist[1][0]) + "," + str(labellist[1][1]))
                 else:
-                    # r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
+                    r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
                     print('识别不到XLabel和YLabel')
                     logging.error("【识别不到XLabel和YLabel】")
             else:
-                # r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
+                r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
                 print('请将--save_txt设为True')
                 logging.error("【save_txt设为True】")
         else:
-            # r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
+            r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
             print(f'{data}文件标签类别有问题，没有XLabel和YLabel标签！')
             logging.error(f"【{data}文件标签类别有问题，没有XLabel和YLabel标签】")
     except Exception as e:
