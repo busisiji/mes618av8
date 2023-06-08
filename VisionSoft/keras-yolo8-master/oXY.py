@@ -108,6 +108,7 @@ def run(
         userId = 'VisionMaker'
 ):
     try:
+
         source = str(source)
         # print(source)
         save_img = not nosave and not source.endswith('.txt')  # save inference images
@@ -120,6 +121,9 @@ def run(
 
         # Directories
         save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
+        print('save_dir',save_dir)
+        with open(save_dir / 'labels/oxy.txt', 'w', encoding='utf-8') as f:
+            f.write('')
         # (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
         # Load model
         device = select_device(device)
@@ -127,7 +131,7 @@ def run(
             img = cv2.imread(source)
             height, width, channels = img.shape
             if width != 848:
-                print('没有新图片传入！')
+                print('error:没有新图片传入！')
                 logging.error("【没有新图片传入】")
                 return
             img_wide = (width - 854) / 2
@@ -141,7 +145,7 @@ def run(
             if ret:
                 img = frame
             else:
-                print('摄像头有问题')
+                print('error:摄像头有问题!')
                 logging.error("【摄像头有问题】")
                 return
         '''识别'''
@@ -183,20 +187,21 @@ def run(
                           (str(labellist[0][0]) + "," + str(labellist[0][1]) + "," + str(labellist[1][0]) + "," + str(labellist[1][1])))
                     print(str(labellist[0][0]) + "," + str(labellist[0][1]) + "," + str(labellist[1][0]) + "," + str(labellist[1][1]))
                 else:
-                    r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
-                    print('识别不到XLabel和YLabel')
+                    # r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
+                    print('error:识别不到XLabel和YLabel')
                     logging.error("【识别不到XLabel和YLabel】")
             else:
-                r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
-                print('请将--save_txt设为True')
+                # r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
+                print('error:请将--save_txt设为True')
                 logging.error("【save_txt设为True】")
         else:
-            r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
-            print(f'{data}文件标签类别有问题，没有XLabel和YLabel标签！')
+            # r.set(userId + "_Oxy", ('0.0' + "," + '0.0' + "," + '0.0' + "," + '0.0'))
+            print(f'error:{data}文件标签类别有问题，没有XLabel和YLabel标签！')
             logging.error(f"【{data}文件标签类别有问题，没有XLabel和YLabel标签】")
     except Exception as e:
         # 记录异常信息
-        logging.exception("【识别标签报错】")
+        print('error:识别报错!')
+        logging.exception("【识别报错】")
 
 def parse_opt():
     '''
@@ -260,6 +265,7 @@ def parse_opt():
     except Exception as e:
         # 记录异常信息
         logging.exception("【输入参数报错】")
+        return 'ERROR'
 def main(opt):
     run(**vars(opt))
 
